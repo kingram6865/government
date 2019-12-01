@@ -381,12 +381,21 @@ function locateExtras(input){
 }
 
 function removeArrayDupes(input){
-	var seen = {};
-	return input.filter(function(item){
-		return seen.hasOwnProperty(item) ? false : (seen[item] = true);
-	});
+	var i = input.length;
 
-	console.log(seen);
+	if (i){
+		while ((--i) && (i < input.length)){
+			console.log(input[i].key, input[i-1].key);
+			if (input[i].key === input[i-1].key){
+				input.splice(i,1);
+			}
+		}
+	}
+
+	for (var k=0; k < input.length; k++){
+		console.log(input[k].key);
+	}
+
 }
 
 
@@ -400,14 +409,15 @@ links = cleanArray(links);
 
 console.log("Array size before removing dupes " + links.length);
 final = removeArrayDupes(links);
-console.log("Array size after removing dupes " + final.length);
+console.log("Array size after removing dupes " + links.length);
 
 /*for (var j=0; j < final.length; j++){
 	//console.log(links[j].key[0], links[j].key[1], links[j].key[2], links[j].key[3]);
 	console.log(JSON.stringify(final[j].key));
 }*/
 
-for (var j=0; j < final.length; j++){
+for (var j=0; j < links.length; j++){
+	//console.log(JSON.stringify(links[j]));
 	//console.log(JSON.stringify(final[j].key));
 	//findRecord(links[j]);
 /*	if( (links[j].key) && (links[j].key.length < 3)){

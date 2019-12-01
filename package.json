@@ -1,0 +1,19 @@
+{
+  "name": "congress-utils",
+  "version": "1.0.0",
+  "description": "Tool for processing data about the United States government pulled from the internet.",
+  "main": "utilities.js",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "dom-parser": "^0.1.6",
+    "htmlparser2": "^4.0.0",
+    "mysql": "github:mysqljs/mysql",
+    "soupselect": "^0.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "k. ingram",
+  "license": "ISC"
+}

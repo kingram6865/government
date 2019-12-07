@@ -2,17 +2,20 @@ const fs = require ('fs');
 const DomParser = require('dom-parser');
 const mysql = require('mysql');
 var parser = new DomParser();
+var dataSource = require('./connection.js');
+//console.log(dataSource);
 var connection = mysql.createConnection({
 	/*debug: ['ComQueryPacket'],*/
-	host 		: '192.168.1.19',
-	user 		: 'root',
-	password: 'gt560bs',
-	database: 'government'
+	host 		: dataSource.ip,
+	user 		: dataSource.login,
+	password: dataSource.pass,
+	database: dataSource.db
 });
 //connection.connect();
 
-var full_document, test, doc, congress, x, final;
+var full_document, test, doc, congress, x, final, final1, final2;
 var links = [];
+var prefix = "https://en.wikipedia.org";
 x = process.argv[2];
 
 function extractLinks(input){
@@ -23,7 +26,7 @@ function extractLinks(input){
 	var html = fs.readFileSync('../html/congress.html').toString();
 	var dom = parser.parseFromString(html);
 	var rows, items, url, link;
-	var prefix = "https://en.wikipedia.org";
+	//var prefix = "https://en.wikipedia.org";
 	//var removedistrict = (data) => {data.match(/district/i)}
 
 
@@ -35,73 +38,77 @@ function extractLinks(input){
 		items.length + " <li> items.");
 
 	console.log();
-	var j=0
+	
 	for (var i=0; i < items.length; i++){
 		var result, arraysize;
-		var regex=/district/;
+		var regex=/district|at-large/i;
 		arraysize = items[i].getElementsByTagName('a').length;
 
-		if ((arraysize === 1) && (!/district/i.test(items[i].getElementsByTagName('a')[0].getAttribute('title'))) ){
+		if ((arraysize === 1) && (!regex.test(items[i].getElementsByTagName('a')[0].getAttribute('title'))) ){
+			//console.log("Cleanse: ", items[i].getElementsByTagName('a')[0].getAttribute('title'));
 			key = cleanseString(items[i].getElementsByTagName('a')[0].getAttribute('title'));
-			result = items[i].getElementsByTagName('a')[0].getAttribute('href');
+			result = prefix + items[i].getElementsByTagName('a')[0].getAttribute('href');
+			//console.log(arraysize + " choice: " + items[i].getElementsByTagName('a')[0].getAttribute('title'));
+			//console.log("{Condition 1} ArraySize[" + arraysize + "] ** {key, result}: " + key, result);
+			record = {key, result};
+			data.push(record);
 		} if (arraysize === 2){
-			key = cleanseString(items[i].getElementsByTagName('a')[1].getAttribute('title'));
-			result = items[i].getElementsByTagName('a')[1].getAttribute('href');
+				for (var k=0; k < arraysize; k++){
+					if ( (!regex.test(items[i].getElementsByTagName('a')[k].getAttribute('title'))) && (items[i].getElementsByTagName('a')[k].getAttribute('title')) ){
+						//console.log(" " + arraysize + "] choices: " + k + " " + items[i].getElementsByTagName('a')[k].getAttribute('title'));
+						//console.log("Cleanse: ", items[i].getElementsByTagName('a')[k].getAttribute('title'));
+						key = cleanseString(items[i].getElementsByTagName('a')[k].getAttribute('title'));
+						result = prefix + items[i].getElementsByTagName('a')[k].getAttribute('href');
+						//console.log("{Condition 2} ArraySize[" + arraysize + "] ** {key, result}: " + key, result);
+						record = {key, result};
+						data.push(record);
+					}
+				}
 		} if (arraysize > 2){
 			/*
 				This option is for the cases when there are href's underneath the main one
-
 			*/
+			
+			/*console.log(items[i].getElementsByTagName('a')[0].textContent);
+			console.log(items[i].getElementsByTagName('a')[1].textContent);
+			console.log(items[i].getElementsByTagName('a')[2].textContent);*/
+			//console.log(items[i].getElementsByTagName('a')[3].textContent);
+
+/*			if (!/district/i.test(items[i].getElementsByTagName('a')[0].getAttribute('title'))){
+				console.log("ArraySize: " + arraysize, items[i].getElementsByTagName('a')[0].getAttribute('title'));
+				key = cleanseString(items[i].getElementsByTagName('a')[0].getAttribute('title'));
+				result = items[i].getElementsByTagName('a')[0].getAttribute('href');
+			}*/
 			for (var k=0; k < arraysize; k++){
-				if (!/district/i.test(items[i].getElementsByTagName('a')[0].getAttribute('title'))){
-					//console.log("Start ===== " + k + "" =====");
-					/*console.log(items[i].getElementsByTagName('a')[k].getAttribute('title') + " " +
-						items[i].getElementsByTagName('a')[k].getAttribute('href'));*/
-					key = cleanseString(items[i].getElementsByTagName('a')[0].getAttribute('title'));
-					result = items[i].getElementsByTagName('a')[0].getAttribute('href');
-					//console.log("===== " + k + "" ===== End");
+				if ((!regex.test(items[i].getElementsByTagName('a')[k].getAttribute('title'))) && (items[i].getElementsByTagName('a')[k].getAttribute('title')) ){
+					//console.log(" " + arraysize + "] choices: " + k + " " + items[i].getElementsByTagName('a')[k].getAttribute('title'));
+					//console.log("Start ===== " + k + " =====");
+					// console.log(items[i].getElementsByTagName('a')[k].getAttribute('title') + " " +
+					//  	items[i].getElementsByTagName('a')[k].getAttribute('href'));
+					//console.log("Cleanse: ", items[i].getElementsByTagName('a')[k].getAttribute('title'));
+					key = cleanseString(items[i].getElementsByTagName('a')[k].getAttribute('title'));
+					result = prefix + items[i].getElementsByTagName('a')[k].getAttribute('href');
+					/*if (k === 4){
+						console.log();
+						console.log("======>", items[i].getElementsByTagName('a')[k].getAttribute('title'));
+						console.log();
+					}*/
+
+					//console.log("===== " + k + " ===== End");
+					if (key.length > 1){
+						//console.log(key.length, "{Condition 3} ArraySize[" + arraysize + "] ** {key, result}: " + key, result);
+						record = {key, result};
+						data.push(record);
+					}
 				}
 			}
 		}
-		
-		//console.log(key);
-
-/*		test = items[i].getElementsByTagName('a')[1];
-		// Currently if [0] and [1] have data, there is a duplicate entry for certain records.
-
-		if (!test){
-			//The regex is needed to clean out any text that is not a peron's name
-			//console.log("There is data in [1]");
-			if (items[i].getElementsByTagName('a')[0]){
-				var search = items[i].getElementsByTagName('a')[0].getAttribute('title').match(regex);
-				
-				if (!search){
-					key = cleanseString(items[i].getElementsByTagName('a')[0].getAttribute('title'));
-					result = prefix + items[i].getElementsByTagName('a')[0].getAttribute('href');
-				} else {
-					continue;
-				}
-			} else {
-				continue;
-			}
-		} else {
-			//console.log("There is data in [0]");
-			var search = items[i].getElementsByTagName('a')[1].getAttribute('title').match(regex);
-
-			if (!search){
-				key = cleanseString(items[i].getElementsByTagName('a')[1].getAttribute('title'));
-				result = prefix + items[i].getElementsByTagName('a')[1].getAttribute('href');
-			} else {
-				continue;
-			}
-		}*/
 
 		//console.log("extractLinks: " + key + ", " + result);
 		results[i] = prefix+result;
-		record = {key, result}
+/*		record = {key, result};
 
-		data.push(record);
-		j++;
+		data.push(record);*/
 	}
 
 	/*data.sort((a,b) => (a.key[3] > b.key[3]) ? 1 : -1);
@@ -110,6 +117,12 @@ function extractLinks(input){
 	}*/
 
 	//console.log(JSON.stringify(data));
+	//data.sort((a, b) => {console.log(JSON.stringify(a.result)); return (b.key > a.key) ? -1 : 1});
+	data.sort((a, b) => {return (b.key > a.key) ? -1 : 1});
+	/*for (var j=0; j < data.length; j++){
+		console.log(JSON.stringify(data[j]));
+	}*/
+
 	return data;
 }
 
@@ -125,67 +138,103 @@ function cleanseString(input){
 
 	*/
 	index;
-	regex = [/\ \(.*\)$/, /&quot;.*&quot;/];
+	regex = [/\ \(.*\)$/, /&quot;.*&quot;/, /\ of\ .*$/];
 
 	if (input){
 		output = input.replace(regex[0], '');
 		output = output.replace(regex[1], '');
+		output = output.replace(regex[2], '');
 
 		pos = output.indexOf(",");
+
 		if (pos > -1){
+			// If the string has a "," we need to divide on the comma first
+			// then on the white space.
 			output = output.split(",");
 			output = output[0].split(" ");
+			//console.log("[Branch 1.1] Input: ", input, "Changed to ", output);
 		} else {
+			// No comma found in the string so split on the whitespace
 			output = output.split(" ");
 			//console.log("Result of Split: " + output);
+
 			if ((output.length === 3) && ( (/\bI\b/i.test(output[2])) || (/\bII\b/i.test(output[2])) ||
 				(/III/i.test(output[2])) || (/Jr\./i.test(output[2])) || (/Sr\./i.test(output[2])) )){
+				// If the resulting array has 3 elements, and the 3rd element is a suffix,
+				// add a blank entry for middlename
+
 				//console.log("Alignment Check! " + output);
 				output.splice(1,0," ");
+				//console.log("[Branch 2.1] Input: ", input, "Changed to ", output);
 				//console.log("Name has suffix. Name matrix adjusted! " + output);
 			/*} else if (output.length === 2){
 				console.log("Alignment Check! " + output);*/
 			} else if (output.length === 2){
+				// If the resulting array has 2 elements, add a blank entry for the middlename
+				//console.log("[Branch 2.2] Input ", output, "<=======");
 				output.splice(1,0," ");
+				//console.log("[Branch 2.2] Output after splice ", output, "<=======")
+				//console.log("[Branch 2.2] Input: ", input, "Changed to ", output);
 				//console.log("Name matrix adjusted " + output);
+			/*} else if ((output.length === 4) && ( (!/\bI\b/i.test(output[2])) || (!/\bII\b/i.test(output[2])) ||
+				(!/III/i.test(output[2])) || (!/Jr\./i.test(output[2])) || (!/Sr\./i.test(output[2]))) &&
+				(!/\bSt\.\b/.test(output[1])) ){
+
+				newname = output[1] + " " + output[2];
+				output.splice(1,2,newname);
+				process.stdout.write(JSON.stringify(output));*/
 			}
 		}
 	} else {
 		output = input;
+		//console.log("Branch 2", input);
 	}
 
 /*	if (output.length > '3'){
 		console.log("Before surnameCheck(): " + output + " " + output.length);
 	}*/
 
+	//process.stdout.write(`${output}`);
+	
 	index = surnameCheck(output);
+	//console.log(". Index of data fitting Van or St.: [" + index + "]");
+	if (index){
+		console.log(" ************** ");
+		/*for (var k=0; k < index.length; k++){
+			if (index[k]){
+				console.log("Results of surnameCheck: " + output + ", " + output[index[k]]);
+			}	
+		}*/
+		console.log("Results of surnameCheck: " + output + ", " + output[index]);
+	}
+	
 
 	if (index === 1) {
 		//console.log("surnameCheck-> output.length: " + index);
 		if ( (output.length === 3) && (/\bjr\.\b|\bsr\.\b|\bI\b|\bII\b|\bIII\b/i.test(output[2])) ){
-			console.log("              Branch 1, surnameCheck-> " + output.length);
+			//console.log("              Branch 1, surnameCheck-> " + output.length);
 			output.splice(1,0," ");
 			newname = output[index] + " " + output[2];
 			output.splice(1, 2, newname);
-			console.log();
+			//console.log();
 		} else if (output.length === 3){
-			console.log("              Branch 2, surnameCheck-> " + output.length);
+			//console.log("              Branch 2, surnameCheck-> " + output.length);
 			newname = output[index] + " " + output[2];
 			output.splice(1, 2, newname);
 			output.splice(1,0, " ");
-			console.log();
+			//console.log();
 		} else if (output.length > 3){
-			console.log("              Branch '3', surnameCheck-> " + output.length);
+			//console.log("              Branch '3', surnameCheck-> " + output.length);
 			newname = output[index] + " " + output[2];
 			output.splice(index, 2, newname);
 			output.splice(1,0, " ");
-			console.log();
+			//console.log();
 		} else {
-			console.log("              Branch 4, surnameCheck-> " + output.length + " " + output);
+			//console.log("              Branch 4, surnameCheck-> " + output.length + " " + output);
 		}
 		
 		//console.log("Index of Van or St.: " + index + ". New output: " + output);
-		console.log("Output: " + output);
+		//console.log("Output: " + output);
 		//console.log("<=========================================>");	
 		
 	} else if (index === 2) {
@@ -196,7 +245,6 @@ function cleanseString(input){
 		console.log("Output: " + output);
 		//console.log("<=========================================>");	
 	}
-
 
 	return output;
 }
@@ -215,7 +263,7 @@ function findRecord(input){
 		excluded.
 
 	*/
-	console.log("findRecord(" + JSON.stringify(input) + ")");
+	//console.log("findRecord(" + JSON.stringify(input) + ")");
 	var record;
 	var keysize = input.key.length;
 	var data = [];
@@ -223,7 +271,7 @@ function findRecord(input){
 		(/^Sr\.$/i.test(input.key[3])) );
 	//console.log("key test:" + key_test + ", key:" + input.key);
 
-	var info = "key length: " + keysize;
+	//var info = "key length: " + keysize;
 	if (keysize === 2){
 		data = [ input.key[1], input.key[0]];
 		//console.log("(findrecord branch 1) key: " + input.key);
@@ -241,7 +289,7 @@ function findRecord(input){
 	if (data){
 		checkRecord(data)
 			.then((row) =>{
-				//console.log(row);
+				//console.log(JSON.stringify(row));
 				processRecord(row[0], row[1], input);
 			});
 		}
@@ -284,6 +332,10 @@ return input;
 }
 
 function checkRecord(input){
+	/*
+		See if the input ["last_name", "first_name"] exists in the database
+	*/
+
 	return new Promise(function(resolve, reject){
 			var filter = [input[0], input[1]];
 			var sql = "SELECT objid, first_name, middle_name, last_name, suffix, wikipedia_link " + 
@@ -297,6 +349,7 @@ function checkRecord(input){
 					reject("Database connection error: " + error);
 				} else {
 					//console.log(filter);
+					//console.log(JSON.stringify(results));
 					resolve([results, filter]);						
 				}
 			});
@@ -316,10 +369,14 @@ function processRecord(input, info, original){
 		lastname = input[0].last_name;
 		suffix = input[0].suffix;
 		link = input[0].wikipedia_link;		
-
+		//console.log("**** Begin Process Record ****");
+		//console.log("Searched DB for ", JSON.stringify(info), ", DB check returned " + JSON.stringify(input));
+		//process.stdout.write("Searched DB for " + JSON.stringify(`${info}`) + " => ");
+		//process.stdout.write("Searched DB for " + JSON.stringify(info) + " => ");
 		if ((middlename === null) && (suffix === null) && (link === null)){
 			//console.log("{000} [" + objid + "] \t" + firstname, lastname, " => No wikipedia entry.");
 			database_data = {firstname, lastname};
+			//console.log("{000} Update Record. Add missing wikipedia entry for record.objid = " + objid, JSON.stringify(html_data));
 		/*} else if ((middlename === null) && (suffix === null) && (link !== null)){
 			console.log("{001} [" + objid + "] \t" + firstname, lastname, link);
 			database_data = {firstname, lastname, link};
@@ -334,44 +391,67 @@ function processRecord(input, info, original){
 			database_data = {firstname, middlename, lastname, link};*/
 		} else if ((middlename === null) && (suffix !== null) && (link === null)){
 			//console.log("{010} [" + objid + "] \t" + firstname, lastname, suffix, " => No wikipedia entry.");
-			database_data = {firstname, lastname, suffix};
+			database_data = {objid, firstname, lastname, suffix};
+			//console.log("{010} Update Record. Add missing wikipedia entry for record.objid = " + objid, JSON.stringify(html_data));
 		} else if ((middlename !== null) && (suffix === null) && (link === null)){
 			//console.log("{100} [" + objid + "] \t" + firstname, middlename, lastname, " => No wikipedia entry.");
-			database_data = {firstname, middlename, lastname};
+			database_data = {objid, firstname, middlename, lastname};
+			//console.log("{100} Update Record. Add missing wikipedia entry for record.objid = " + objid, JSON.stringify(html_data));
 		} else if ((middlename !== null) && (suffix !== null) && (link === null)){
 			//console.log("{110} [" + objid + "] \t" + firstname, middlename, lastname, suffix, " => No wikipedia entry.");
-			database_data = {firstname, middlename, lastname, suffix};
-		}		
+			database_data = {objid, firstname, middlename, lastname, suffix};
+			//console.log("{110} Update Record. Add missing wikipedia entry for record.objid = " + objid, JSON.stringify(html_data));
+		}	 else if (link !== null){
+			//console.log("Database record has wikipedia. No action taken.", JSON.stringify(info));
+			//console.log("Wikipedia link? [TRUE]");
+			//console.log();
+		}
 	} else {
 		/*
 			If the searched name does not exist, create the record and add the wikipedia link
 		*/
 
-		console.log("No Database entry found for ", info, original.key[0] + " " + original.key[1] + " " + 
-			original.key[2] + " " + original.key[3] + ", " + original.result);
+		// console.log("No Database entry found for ", info, ". Adding data: [" + original.key[0] + " " + original.key[1] + " " + 
+		// 	original.key[2] + " " + ((original.key[3]) ? original.key[3] : "")  + ", " + prefix + original.result + "]");
 	}
-
+	//console.log("**** End Process Record ****");
 	//updateRecord(database_data, html_data);
 }
 
 function updateRecord(database, htmldata){
-	
 
 }
 
 function surnameCheck(input){
-	var expressions = [/\bVan\b/i,/\bSt\.\b/i];
+	/*
+		Returns an integer which indicates the index of the expression
+	*/
+
+	//var expressions = [/\bVan\b/i,/\bSt\.\b/i];
+	var regexTest;
+	var expressions = [/\bSt\b/i,/\bVan\b/i,/\bde\b/i];
 	var result;
 	//console.log("surnameCheck(" + input + ")");
 	for (var j=0; j < expressions.length; j++){
+		regexTest = expressions[j].test(input);
+		
 		var data = (element) => element.match(expressions[j]);
-		if (expressions[j].test(input) ){
-			//console.log(result);
+		//process.stdout.write();
+		
+
+		//(regexTest) ? console.log("Test Succeeded", regexTest) : console.log("Test Failed", regexTest)
+		//if (expressions[j].test(input)){
+		//console.log("Test result: ", regexTest, " <<<<<< ");
+		if (regexTest){
+			console.log("<Loop " + j + ">      >> ", JSON.stringify(input), ", ", expressions[j], ", ", regexTest,
+			", ", input.findIndex(data));
+			//result[j] = input.findIndex(data);
 			result = input.findIndex(data);
-			//console.log("Test done. Array index of matching string: " + result + ", Input data: " + input);
-			//console.log("Input: " + input);
 		}
 	}
+
+	//console.log("Results after checking regex: " + JSON.stringify(result));
+
 	return result;
 }
 
@@ -382,20 +462,28 @@ function locateExtras(input){
 
 function removeArrayDupes(input){
 	var i = input.length;
-
+	//console.log("Processing array to remove dupes. Input length = " + i);
 	if (i){
-		while ((--i) && (i < input.length)){
-			console.log(input[i].key, input[i-1].key);
-			if (input[i].key === input[i-1].key){
+		//while ((--i) && (i < input.length)){
+		while (--i){
+			/*console.log(JSON.stringify(input[i].key), " === " ,JSON.stringify(input[i-1].key) + 
+				"?", "Test says", (JSON.stringify(input[i]) === JSON.stringify(input[i-1])));*/
+			//console.log("Test ", ((input[i]) === (input[i-1])));
+			if (JSON.stringify(input[i]) === JSON.stringify(input[i-1])){
+			//if ((input[i]) === (input[i-1])){
+				//console.log(JSON.stringify(input[i]), " compared to ", JSON.stringify(input[i-1]));
+				//console.log("Before splice input[" + i + "] = " + JSON.stringify(input[i]));
 				input.splice(i,1);
+				//console.log("After splice input[" + i + "] = " +JSON.stringify(input[i]));
 			}
 		}
 	}
 
-	for (var k=0; k < input.length; k++){
+/*	for (var k=0; k < input.length; k++){
 		console.log(input[k].key);
-	}
+	}*/
 
+	return input;
 }
 
 
@@ -404,22 +492,20 @@ links = extractLinks(x);
 	console.log(links[k]);
 }*/
 
-//cleanArray(data);
 links = cleanArray(links);
 
-console.log("Array size before removing dupes " + links.length);
-final = removeArrayDupes(links);
-console.log("Array size after removing dupes " + links.length);
+console.log();
+process.stdout.write("Array size before removing dupes " + links.length + ", ");
+final1 = removeArrayDupes(links);
+final = final1.sort();
+/*final2 = removeArrayDupes(final);*/
+console.log("Array size after removing dupes " + final1.length);
 
-/*for (var j=0; j < final.length; j++){
-	//console.log(links[j].key[0], links[j].key[1], links[j].key[2], links[j].key[3]);
-	console.log(JSON.stringify(final[j].key));
-}*/
-
-for (var j=0; j < links.length; j++){
+for (var j=0; j < final.length; j++){
 	//console.log(JSON.stringify(links[j]));
-	//console.log(JSON.stringify(final[j].key));
-	//findRecord(links[j]);
+	//console.log(JSON.stringify(final2[j].key));
+	//console.log("Checking existence of ", JSON.stringify(final[j]), "in the database.");
+	findRecord(final[j]);
 /*	if( (links[j].key) && (links[j].key.length < 3)){
 		console.log(JSON.stringify(links[j]));
 	} else if (!links[j].key){
@@ -428,5 +514,4 @@ for (var j=0; j < links.length; j++){
 }
 
 console.log("<++++++++++++++++++++++++++++++++++>");
-
 connection.end();

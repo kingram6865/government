@@ -17,8 +17,9 @@ var pool = mysql.createPool(dataSource);
 
 
 
-var full_document, test, doc, congress, x, final, final1, final2, database_changes;
+var full_document, test, doc, congress, x, final, final1, final2, database_changes, resultValue;
 database_changes = [];
+var promises = [];
 var links = [];
 var prefix = "https://en.wikipedia.org";
 x = process.argv[2];
@@ -298,11 +299,12 @@ function findRecord(input){
 		return checkRecord(data)
 			.then((row) =>{
 				//console.log(JSON.stringify(row));
-				processRecord(row[0], row[1], input);
+				return processRecord(row[0], row[1], input);
 				// for (var i=0; i < database_changes.length; i++){
 				// 	console.log(database_changes.join("','"));	
 				// }
 			});
+			//.finally(() => pool.end());
 			//.then(()=>{console.log("Changes = +++>" + JSON.stringify(database_changes))});
 			// .then(()=>{
 			// 	pool.end((err)=>{
@@ -446,7 +448,8 @@ function processRecord(input, info, original){
 
 		if (database_data){
 			database_changes.push(database_data);
-			result = updateRecord(database_data);
+			resultValue = updateRecord(database_data);
+			//console.log("Data about result: " + typeof resultValue);
 		 	// .then((data) => {
 				// database_changes.push(data);
 				// console.log("Update completed on " + JSON.stringify(database_data) + ", results: " + JSON.stringify(data));
@@ -460,7 +463,8 @@ function processRecord(input, info, original){
 			original.result + "]");*/
 		console.log("     --> No database record for " + JSON.stringify(info) + ". Inserting data " + JSON.stringify(original));
 		database_changes.push(original);
-		result = insertRecord(original);
+		resultValue = insertRecord(original);
+		//console.log("Data about result: " + typeof resultValue);
 			// .then((data) => {
 			// 	console.log(data.insertId)
 			// 	database_changes.push(data.insertId);
@@ -468,7 +472,8 @@ function processRecord(input, info, original){
 	}
 	//console.log(", Database data: " + (database_data) ? JSON.stringify(database_data) : "");
 	//console.log("**** End Process Record ****");
-	return result;
+	//console.log("Data about result: " + resultValue);
+	return resultValue;
 }
 
 function updateRecord(data){
@@ -523,10 +528,10 @@ function executeQuery(query, params, qtype){
 						reject("Database connection error: " + error);
 					} else {
 						if (qtype === "insert"){
-							console.log("[executeQuery] Results: " + (results.insertId) ? "Inserted " + results.insertId : "No insert completed.");
+							console.log("[executeQuery] Results: " + ((results.insertId) ? "Inserted " + results.insertId : "No insert completed."));
 						} else if (qtype === "update"){
 							//console.log(results.affectedRows);
-							console.log("[executeQuery] Results. Updated " + params + " " + (results) ? results.affectedRows + " row." : "Update failed");
+							console.log("[executeQuery] Results. Updated " + params + ", " + ((results) ? results.affectedRows + " row." : "Update failed"));
 						}
 						resolve([results, params]);
 					}
@@ -592,23 +597,35 @@ final = final1.sort();
 console.log("Array size after removing dupes " + final.length);
 console.log();
 
+/*for (var j=0; j < final.length; j++){
+	findRecord(final[j]);
+}*/
+
 for (var j=0; j < final.length; j++){
 	//console.log("Executing findRecord(" + JSON.stringify(final[j]) + ")");
-	findRecord(final[j]);
+	promises.push(findRecord(final[j]));
 }
 
-/*Promise.all(findRecord())
-	.then(() =>{
-		pool.end((err) => {
-			console.log("Script complete.");
-		});
-	});*/
+console.log(JSON.stringify(promises));
+
+Promise.all(promises)
+	.then((results) => {
+		//console.log((results) ? "[.then] Results: " + ((results.insertId) ? results.insertId : results.rowsAffected ) : "...");
+
+		//console.log("[.then fork 1] Results: " + results.insertId);
+		// if (results.insertId){
+		// 	console.log("[.then fork 1] Results: " + results.insertId);
+		// } else if (results.rowsAffected) {
+		// 	console.log("[.then fork 2] Results: " + results.rowsAffected);
+		// }
+	})
+	.catch((err) => {
+		if (err) throw err;
+	})
+	.finally(()=>{
+		pool.end();
+	});
 
 //console.log(JSON.stringify(database_changes), database_changes.join("','"));
 console.log("Processing Completed ++++++++++++++++++++++++++++++++++>");
-/*connection.end(function(err){
-	console.log("End MySQL connection");
-});*/
-
-console.log();
-executeQuery("SELECT now() from dual", []).then((data) => {console.log(JSON.stringify(data[0]));});
+//executeQuery("SELECT now() from dual", []).then((data) => {console.log(JSON.stringify(data[0]));});

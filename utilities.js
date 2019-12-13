@@ -5,17 +5,6 @@ var parser = new DomParser();
 var dataSource = require('./connection.js');
 //console.log(dataSource);
 var pool = mysql.createPool(dataSource);
-/*var connection = mysql.createConnection({
-	//debug: ['ComQueryPacket'],
-	host 		: dataSource.host,
-	user 		: dataSource.user,
-	password: dataSource.password,
-	database: dataSource.database
-});*/
-
-//connection.connect();
-
-
 
 var full_document, test, doc, congress, x, final, final1, final2, database_changes, resultValue;
 database_changes = [];
@@ -48,21 +37,15 @@ function extractLinks(input){
 		arraysize = items[i].getElementsByTagName('a').length;
 
 		if ((arraysize === 1) && (!regex.test(items[i].getElementsByTagName('a')[0].getAttribute('title'))) ){
-			//console.log("Cleanse: ", items[i].getElementsByTagName('a')[0].getAttribute('title'));
 			key = cleanseString(items[i].getElementsByTagName('a')[0].getAttribute('title'));
 			result = items[i].getElementsByTagName('a')[0].getAttribute('href');
-			//console.log(arraysize + " choice: " + items[i].getElementsByTagName('a')[0].getAttribute('title'));
-			//console.log("{Condition 1} ArraySize[" + arraysize + "] ** {key, result}: " + key, result);
 			record = {key, result};
 			data.push(record);
 		} else if (arraysize === 2){
 				for (var k=0; k < arraysize; k++){
 					if ( (!regex.test(items[i].getElementsByTagName('a')[k].getAttribute('title'))) && (items[i].getElementsByTagName('a')[k].getAttribute('title')) ){
-						//console.log(" " + arraysize + "] choices: " + k + " " + items[i].getElementsByTagName('a')[k].getAttribute('title'));
-						//console.log("Cleanse: ", items[i].getElementsByTagName('a')[k].getAttribute('title'));
 						key = cleanseString(items[i].getElementsByTagName('a')[k].getAttribute('title'));
 						result = items[i].getElementsByTagName('a')[k].getAttribute('href');
-						//console.log("{Condition 2} ArraySize[" + arraysize + "] ** {key, result}: " + key, result);
 						record = {key, result};
 						data.push(record);
 					}
@@ -83,21 +66,10 @@ function extractLinks(input){
 				}
 			}
 		}
-
 		results[i] = prefix+result;
-/*		record = {key, result};
-
-		data.push(record);*/
 	}
 
 	data.sort((a, b) => {return (b.key > a.key) ? -1 : 1});
-	//console.log();
-	/*for (var j=0; j < data.length; j++){
-		if ( ( (data[j].key.length > 3) && (data[j].key[1] !== " "))  || (/\bVan\b|\bSt\.|\bde\b|\bla\b|\ble\b|\bJr\.|\bSr\.|\bI\b|\bII\b|\bIII\b|\bIV\b/i.test(data[j].key)) ){
-				console.log("[extractLinks] array element [" + j + "] final form = " + JSON.stringify(data[j]));
-		}
-	}*/
-
 	return data;
 }
 
@@ -117,51 +89,18 @@ function cleanseString(input){
 	suffixRE = /\bI\b|\bII\b|\bIII\b|\bJr\.|\bSr\./i;
 
 	if (input){
-		//console.log(JSON.stringify("[cleanseString] " + input));
 		output = input.replace(regex[0], '');
 		output = output.replace(regex[1], '');
 		output = output.replace(regex[2], '');
 		output = output.replace(regex[3], '');
-
-
-		/*pos = output.indexOf(",");
-
-		if (pos > -1){
-			// If the string has a "," we need to divide on the comma first
-			// then on the white space.
-			output = output.split(",");
-			console.log(JSON.stringify("[cleanseString Branch 1] " + output));
-			output = output[0].split(" ");
-
-			//console.log("[Branch 1.1] Input: ", input, "Changed to ", output);
-		} else {*/
-			// No comma found in the string so split on the whitespace
-			output = output.split(" ");
-			//console.log("Result of Split: " + output);
-
-			/*if ((output.length === 3) && ( (/\bI\b/i.test(output[2])) || (/\bII\b/i.test(output[2])) ||
-				(/III/i.test(output[2])) || (/Jr\./i.test(output[2])) || (/Sr\./i.test(output[2])) )){*/
-			//if ((output.length === 3) && ( (/\bI\b|\bII\b|\bIII\b|\bJr\.|\bSr\./i.test(output[2])) )){
-			if ((output.length === 3) && ( (suffixRE.test(output[2])) )){
-				// If the resulting array has 3 elements, and the 3rd element is a suffix,
-				// add a blank entry for middlename
-				output.splice(1,0," ");
-				//console.log("This key length is " + output.length + ", ", JSON.stringify(output));
-			/*} else if ((output.length === 3) && (!(suffixRE.test(output[2]))) ){
-				console.log("This key length is " + output.length + ", ", JSON.stringify(output));
-			} else if ( (output.length === 4) && ( (suffixRE.test(output[3]))) ){
-				console.log("This key length is " + output.length + ", ", JSON.stringify(output));
-			} else if ( (output.length === 5) && ( (suffixRE.test(output[4]))) ){
-				console.log("This key length is " + output.length + ", ", JSON.stringify(output));
-			} else if ( (output.length === 4) && ( !(suffixRE.test(output[3]))) ){
-				console.log("This key length is " + output.length + ", ", JSON.stringify(output));
-			} else if ( (output.length > 5) && (!(suffixRE.test(output[4]))) ){
-				console.log("This key length is " + output.length + ", ", JSON.stringify(output));*/
-			} else if (output.length === 2){
-				output.splice(1,0," ");
-			}
-			//console.log("This key length is " + output.length + ", ", JSON.stringify(output));
-		/*}*/
+		output = output.split(" ");
+		if ((output.length === 3) && ( (suffixRE.test(output[2])) )){
+			// If the resulting array has 3 elements, and the 3rd element is a suffix,
+			// add a blank entry for middlename
+			output.splice(1,0," ");
+		} else if (output.length === 2){
+			output.splice(1,0," ");
+		}
 	} else {
 		output = input;
 		if (output) {
@@ -171,79 +110,44 @@ function cleanseString(input){
 		}
 	}
 
-	//process.stdout.write(`${output}`);
  	if (output){
  		index = surnameCheck(output);
  	}
 
 	if (index === 1) {
 		if ( (output.length === 3) && (/\bjr\.|\bsr\.|\bI\b|\bII\b|\bIII\b/i.test(output[2])) ){
-			//console.log("              Branch 1.1, surnameCheck-> " + output.length + " " + output);
 			output.splice(1,0,"");
 			newname = output[index] + " " + output[2];
 			output.splice(1, 2, newname);
-			//console.log();
 		} else if (output.length === 3){
-			//console.log("              Branch 1.2, surnameCheck-> " + output.length + " " + output);
 			newname = output[index] + " " + output[2];
 			output.splice(1, 2, newname);
 			output.splice(1,0, "");
-			//console.log("              " + JSON.stringify(output));
-			//console.log();
 		} else if ( (output.length === 4) && (/\bjr\.|\bsr\.|\bI\b|\bII\b|\bIII\b/i.test(output[3])) ){
-			//console.log("              Branch 1.3, surnameCheck-> " + output.length + " " + output);
 			newname = output[index] + " " + output[index+1];
 			output.splice(index, 2, newname);
 			output.splice(1, 0, "");
-			//console.log("              Found /van/st./de/la with suffix :" + newname);
 		} else if ( (output.length === 4) && (!/\bjr\.|\bsr\.|\bI\b|\bII\b|\bIII\b/i.test(output[3])) ){
-			//console.log("              Branch 1.4, surnameCheck-> " + output.length + " " + output);
 			newname = output[index] + " " + output[index+1];
 			output.splice(index, 2, newname);
-			//console.log("              Found /van/st./de/la without suffix :" + newname);
 		} else if ( (output.length > 4) && (/\bjr\.|\bsr\.|\bI\b|\bII\b|\bIII\b/i.test(output)) ){
-			console.log("              Branch 1.5, surnameCheck-> " + output.length + " " + output);
 			newname = output[index] + " " + output[index+1];
 			output.splice(index, 2, newname);
-			//console.log("              Found /van/st./de/la with suffix :" + newname);
 		}
-
-
-		console.log("(Branch 1) " + index + ", Outlier Adjusted. New name: " + JSON.stringify(output));
 	} else if (index === 2) {
-		//console.log("              Branch 2.1, surnameCheck-> " + output.length + " " + output);
 		newname = output[index] + " " + output[index+1];
 		output.splice(index,2, newname);
-		console.log("(Branch 2) " + index + ", Outlier Adjusted. New name: " + JSON.stringify(output));
 	} else {
-		/*if (output.length > 3) {
-			// Error in this part ocurred because \b is nnot needed in regex after \.
-				// console.log("Test Loop 1 for " + JSON.stringify(output) + ": " + (/\bjr\.|\bsr\.|\bI\b|\bII\b|\bIII\b/i.test(output[3])) );
-				// console.log("Test Loop 2 for " + JSON.stringify(output) + ": " + (!(/\bjr\.|\bsr\.|\bI\b|\bII\b|\bIII\b/i.test(output[3]))) );
-		}*/
-
-		/*if ( (output.length === 4) && (output[1] !== " ") && (/\bjr\.|\bsr\.|\bI\b|\bII\b|\bIII\b/i.test(output[3])) ){
-			//console.log("              Branch '2.1', surnameCheck-> " + output.length);
-			console.log("New name: " + JSON.stringify(output));
-			//console.log();		
-		} else*/ 
 		if ( output && ((output.length === 4) && (output[1] !== " ") && (!/\bjr\.|\bsr\.|\bI\b|\bII\b|\bIII\b/i.test(output[3]))) ){
-			//console.log("              Branch '2.2', surnameCheck-> " + output.length);
-			//process.stdout.write("Adjusting " + JSON.stringify(output), " to ");
 			if (index >= 0){
 				newname = output[index] + " " + output[index+1];
 				output.splice(index, 2, newname);
-				console.log("Index >= 0 (Branch 3.1) " + index + ", Outlier Adjusted. New name: " + JSON.stringify(output));
 			} else {
 				newname = output[1] + " " + output[2];
 				output.splice(1, 2, newname);
-				console.log("(Branch 3.1) no REGEX match, Outlier Adjusted. New name: " + JSON.stringify(output));
 			}
-
-			
 		}
 	}
-
 	return output;
 }
 
@@ -261,7 +165,7 @@ function findRecord(input){
 		excluded.
 
 	*/
-	//console.log("findRecord(" + JSON.stringify(input) + ")");
+
 	var record, index;
 	var keysize = input.key.length;
 	var data = [];
@@ -269,52 +173,24 @@ function findRecord(input){
 	var key_test = ( (/^I$/i.test(input.key[index])) || (/^II$/i.test(input.key[index])) || 
 		(/^III$/i.test(input.key[index])) || (/^Jr\.$/i.test(input.key[index])) ||
 		(/^Sr\.$/i.test(input.key[index])) );
-	
-	//var key_test = /^I$|^II$|^III$|^Jr\.$|^Sr\.$/i.test(input[index]);
-	
-	/*if (key_test){
-		console.log(key_test, JSON.stringify(input));
-	}*/
-
 
 	if (keysize === 2){
 		data = [ input.key[1], input.key[0]];
-		//console.log("(findrecord branch 1) key: " + input.key);
 	} else if (keysize === 3){
 		data = [input.key[2], input.key[0]];
-		//console.log("(findrecord branch 2) key: " + input.key);
 	} else if ((keysize === 4) && (key_test)){
 		data = [input.key[2], input.key[0]];
-		//console.log("findRecord condition 3: " + JSON.stringify(data) + " from source: ", JSON.stringify(input));
 	} else if ((keysize === 5) && (key_test)){
 		data = [input.key[3], input.key[0]];
-		//console.log("findRecord condition 4: " + JSON.stringify(data) + " from source: ", JSON.stringify(input));
 	} else if ((keysize > 4) && (!key_test)){
-		console.log("Extra work here ==> " + input.key + ". Key length: " + keysize , input.result);
 		data = null;
 	}
 
-	//console.log("[findRecord]:" + data);
 	if (data){
 		return checkRecord(data)
 			.then((row) =>{
-				//console.log(JSON.stringify(row));
 				return processRecord(row[0], row[1], input);
-				// for (var i=0; i < database_changes.length; i++){
-				// 	console.log(database_changes.join("','"));	
-				// }
 			});
-			//.finally(() => pool.end());
-			//.then(()=>{console.log("Changes = +++>" + JSON.stringify(database_changes))});
-			// .then(()=>{
-			// 	pool.end((err)=>{
-			// 		if (err) throw err;
-			// 		//console.log("pool released.");
-			// 	});
-			// });
-			// .then(()=>{
-			// 	pool.on('release' ,function(connection){ console.log('Connection %d released', connection.threadId); });
-			// });
 	}
 }
 
@@ -332,25 +208,17 @@ function cleanArray(input){
 	var k = input.length;
 	var previous;
 	input.sort();
-/*	for (var j=0; j < i; j ++){
-		console.log(JSON.stringify(input[j]));
-	}*/
 
 	if (i){
 		while (--i){
 			var cur = input[i];
 			if (!cur.key){
-				// Remove empty records
 				input.splice(i,1);
 			}
 		}
 	}
 
-/*	for (var j=0; j < input.length; j ++){
-			console.log(JSON.stringify(input[j].key));
-		}
-*/
-return input;
+	return input;
 
 }
 
@@ -363,25 +231,6 @@ function checkRecord(input){
 	"FROM people where last_name = ? AND first_name = ?";
 
 	return executeQuery(sql, [input[0], input[1]]);
-/*	return new Promise(function(resolve, reject){
-		// pool.getConnection((err, connection) =>{
-		// 	if (err){
-		// 		console.log("[checkRecord] Connection Error => ", err);
-		// 	} else {
-				connection.query(sql, filter, (error, results, fields) =>{
-				//pool.query(sql, filter, (error, results, fields) =>{
-					if (error){
-						console.log("Database connection error: " + error);
-						//logger.info("Database connection error: " + error);
-						reject("Database connection error: " + error);
-					} else {
-						resolve([results, filter]);						
-					}
-				});
-		// 	}
-		// });
-	});*/
-
 }
 
 function processRecord(input, info, original){
@@ -405,74 +254,27 @@ function processRecord(input, info, original){
 		suffix = input[0].suffix;
 		link = input[0].wikipedia_link;		
 	 
-		//console.log(JSON.stringify(html_data));
 		if ((middlename === null) && (suffix === null) && (link === null)){
-			//console.log("{000} [" + objid + "] \t" + firstname, lastname, " => No wikipedia entry.");
-			//database_data = {firstname, lastname};
 			database_data = {branch: '000', objid, original};
-			//console.log("{000} Update Record. Add missing wikipedia entry for record.objid = " + objid, JSON.stringify(html_data));
-		/*} else if ((middlename === null) && (suffix === null) && (link !== null)){
-			console.log("{001} [" + objid + "] \t" + firstname, lastname, link);
-			database_data = {firstname, lastname, link};
-		} else if ((middlename !== null) && (suffix !== null) && (link !== null)) {
-			console.log("{111} [" + objid + "] \t" + firstname, middlename, lastname, suffix, link);
-			database_data = {firstname, middlename, lastname, suffix, link};
-		} else if ((middlename === null) && (suffix !== null) && (link !== null)){
-			console.log("{011} [" + objid + "] \t" + firstname, lastname, suffix, link);
-			database_data = {firstname, lastname, suffix, link};
-		} else if ((middlename !== null) && (suffix === null) && (link !== null)){
-			console.log("{101} [" + objid + "] \t" + firstname, middlename, lastname, link);
-			database_data = {firstname, middlename, lastname, link};*/
 		} else if ((middlename === null) && (suffix !== null) && (link === null)){
-			//console.log("{010} [" + objid + "] \t" + firstname, lastname, suffix, " => No wikipedia entry.");
-			//database_data = {objid, firstname, lastname, suffix};
 			database_data = {branch: '010', objid, original};
-			//console.log("{010} Update Record. Add missing wikipedia entry for record.objid = " + objid, JSON.stringify(html_data));
 		} else if ((middlename !== null) && (suffix === null) && (link === null)){
-			//console.log("{100} [" + objid + "] \t" + firstname, middlename, lastname, " => No wikipedia entry.");
-			//database_data = {objid, firstname, middlename, lastname};
 			database_data = {branch: '100', objid, original};
-			//console.log("{100} Update Record. Add missing wikipedia entry for record.objid = " + objid, JSON.stringify(html_data));
 		} else if ((middlename !== null) && (suffix !== null) && (link === null)){
-			//console.log("{110} [" + objid + "] \t" + firstname, middlename, lastname, suffix, " => No wikipedia entry.");
-			//database_data = {objid, firstname, middlename, lastname, suffix};
 			database_data = {branch: '110', objid, original};
-			//console.log("{110} Update Record. Add missing wikipedia entry for record.objid = " + objid, JSON.stringify(html_data));
-		}	 else if (link !== null){
-			//database_data = {branch: "none", objid: 0, original: "No changes needed"};
-			//database_data = {objid, firstname, middlename, lastname, suffix, link};
-			//console.log("Database record has wikipedia link. No action taken.", JSON.stringify(info));
-			//console.log("Wikipedia link? [TRUE]");
-			//console.log();
 		}
 
 		if (database_data){
 			database_changes.push(database_data);
 			resultValue = updateRecord(database_data);
-			//console.log("Data about result: " + typeof resultValue);
-		 	// .then((data) => {
-				// database_changes.push(data);
-				// console.log("Update completed on " + JSON.stringify(database_data) + ", results: " + JSON.stringify(data));
-		 	// });
 		}
-		//(database_data) ? updateRecord(database_data) : console.log("***");
 	} else {
 		/* If the searched name does not exist, create the record and add the wikipedia link */
-		/*console.log("    --> No Database entry found for ", info, ". Insert new data: [" + original.key[0] + ", " + 
-			original.key[1] + ", " + original.key[2] + ", " + ((original.key[3]) ? original.key[3] : "")  + ", " + 
-			original.result + "]");*/
 		console.log("     --> No database record for " + JSON.stringify(info) + ". Inserting data " + JSON.stringify(original));
 		database_changes.push(original);
 		resultValue = insertRecord(original);
-		//console.log("Data about result: " + typeof resultValue);
-			// .then((data) => {
-			// 	console.log(data.insertId)
-			// 	database_changes.push(data.insertId);
-			// });
 	}
-	//console.log(", Database data: " + (database_data) ? JSON.stringify(database_data) : "");
-	//console.log("**** End Process Record ****");
-	//console.log("Data about result: " + resultValue);
+
 	return resultValue;
 }
 
@@ -482,12 +284,8 @@ function updateRecord(data){
 	objid = parseInt(data.objid);
 	link = prefix + data.original.result;
 	sql = "UPDATE people SET wikipedia_link = ? WHERE objid = ?";
-	//connection.query(sql, [link, objid]);
-	//sql  = "UPDATE people SET wikipedia_link = '" + link + "' WHERE objid = " + objid;
-	//console.log("    Add wikipedia link to: " + JSON.stringify(data));
 	
 	console.log(mysql.format(sql, [link, objid]));
-	//writeResults("Congress_" + x + ".sql", mysql.format(sql, [link, objid]) + ";\n");
 	return executeQuery(sql, [link, objid], "update");
 }
 
@@ -502,7 +300,6 @@ function insertRecord(htmldata){
 
 	var sql = "INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES (?,?,?,?,?)";
 	console.log("     " + mysql.format(sql, [firstname, middlename, lastname, suffix, link]));
-	//writeResults("Congress_" + x + ".sql", mysql.format(sql, [firstname, middlename, lastname, suffix, link]) + ";\n");
 	return executeQuery(sql, [firstname, middlename, lastname, suffix, link], "insert");
 }
 
@@ -550,23 +347,15 @@ function surnameCheck(input){
 	
 	propername = [];
 	keylength = input.length;
-	//console.log("surnameCheck(" + input + ")");
 	for (var j=0; j < expressions.length; j++){
 		regexTest = expressions[j].test(input);
 		var data = (element) => element.match(expressions[j]);
-		//process.stdout.write();
 		if (regexTest){
 			result = input.findIndex(data);
 		}
 	}
 
-	//console.log("[surnameCheck] " + JSON.stringify(input) + ", result: " + result);
 	return result;
-}
-
-function locateExtras(input){
-				var seek = [/[A-Z]\./i,/^I$/i,/^II$/i,/^III$/i,/Jr\./i,/Sr\./i];
-			var locations = [];
 }
 
 function removeArrayDupes(input){
@@ -597,12 +386,8 @@ final = final1.sort();
 console.log("Array size after removing dupes " + final.length);
 console.log();
 
-/*for (var j=0; j < final.length; j++){
-	findRecord(final[j]);
-}*/
-
 for (var j=0; j < final.length; j++){
-	//console.log("Executing findRecord(" + JSON.stringify(final[j]) + ")");
+	console.log("Executing findRecord(" + JSON.stringify(final[j]) + ")");
 	promises.push(findRecord(final[j]));
 }
 
@@ -610,14 +395,7 @@ console.log(JSON.stringify(promises));
 
 Promise.all(promises)
 	.then((results) => {
-		//console.log((results) ? "[.then] Results: " + ((results.insertId) ? results.insertId : results.rowsAffected ) : "...");
 
-		//console.log("[.then fork 1] Results: " + results.insertId);
-		// if (results.insertId){
-		// 	console.log("[.then fork 1] Results: " + results.insertId);
-		// } else if (results.rowsAffected) {
-		// 	console.log("[.then fork 2] Results: " + results.rowsAffected);
-		// }
 	})
 	.catch((err) => {
 		if (err) throw err;

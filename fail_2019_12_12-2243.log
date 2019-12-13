@@ -1,0 +1,1117 @@
+Tried this:
+
+for (var j=0; j < final.length; j++){
+	//console.log("Executing findRecord(" + JSON.stringify(final[j]) + ")");
+	promises.push(findRecord(final[j]));
+}
+
+//console.log(JSON.stringify(promises));
+
+Promise.all(promises)
+	.then((results) => {
+		console.log(results);
+	})
+	.catch((err) => {
+		if (err) throw err;
+	})
+	.finally(()=>{
+		pool.end();
+	});
+ 
+Doesn't seem to work:
+
+==============================] Retrieving data for Congress 37 [congress37], 352 <li> items.
+
+(Branch 3.1) no REGEX match, Outlier Adjusted. New name: ["John","C. Ten","Eyck"]
+(Branch 3.1) no REGEX match, Outlier Adjusted. New name: ["Robert","Mercer Taliaferro","Hunter"]
+(Branch 3.1) no REGEX match, Outlier Adjusted. New name: ["John","P. C.","Shanks"]
+(Branch 3.1) no REGEX match, Outlier Adjusted. New name: ["T.","A. D.","Fessenden"]
+(Branch 3.1) no REGEX match, Outlier Adjusted. New name: ["T.","A. D.","Fessenden"]
+(Branch 3.1) no REGEX match, Outlier Adjusted. New name: ["Cornelius","L. L.","Leary"]
+(Branch 3.1) no REGEX match, Outlier Adjusted. New name: ["John","L. N.","Stratton"]
+(Branch 1) 1, Outlier Adjusted. New name: ["Charles","","Van Wyck"]
+(Branch 2) 2, Outlier Adjusted. New name: ["Robert","B.","Van Valkenburgh"]
+(Branch 1) 1, Outlier Adjusted. New name: ["Burt","","Van Horn"]
+(Branch 3.1) no REGEX match, Outlier Adjusted. New name: ["Harrison","G. O.","Blake"]
+(Branch 3.1) no REGEX match, Outlier Adjusted. New name: ["John","B. S.","Todd"]
+
+Array size before removing dupes 321, Array size after removing dupes 281
+
+Processing Completed ++++++++++++++++++++++++++++++++++>
+     --> No database record for ["Riddle","Albert"]. Inserting data {"key":["Albert","G.","Riddle"],"result":"/wiki/Albert_G._Riddle"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Albert','G.','Riddle',NULL,'https://en.wikipedia.org/wiki/Albert_G._Riddle')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Alexander_S._Diven' WHERE objid = 1789
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Aaron_Augustus_Sargent' WHERE objid = 4849
+     --> No database record for ["Morrill","Anson"]. Inserting data {"key":["Anson","P.","Morrill"],"result":"/wiki/Anson_P._Morrill"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Anson','P.','Morrill',NULL,'https://en.wikipedia.org/wiki/Anson_P._Morrill')
+     --> No database record for ["Walker","Amasa"]. Inserting data {"key":["Amasa"," ","Walker"],"result":"/wiki/Amasa_Walker"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Amasa',' ','Walker',NULL,'https://en.wikipedia.org/wiki/Amasa_Walker')
+     --> No database record for ["Clark","Ambrose"]. Inserting data {"key":["Ambrose","W.","Clark"],"result":"/wiki/Ambrose_W._Clark"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Ambrose','W.','Clark',NULL,'https://en.wikipedia.org/wiki/Ambrose_W._Clark')
+     --> No database record for ["Thayer","Andrew"]. Inserting data {"key":["Andrew","J.","Thayer"],"result":"/wiki/Andrew_J._Thayer"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Andrew','J.','Thayer',NULL,'https://en.wikipedia.org/wiki/Andrew_J._Thayer')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Andrew_Jackson_Clements' WHERE objid = 1336
+     --> No database record for ["Knapp","Anthony"]. Inserting data {"key":["Anthony","L.","Knapp"],"result":"/wiki/Anthony_L._Knapp"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Anthony','L.','Knapp',NULL,'https://en.wikipedia.org/wiki/Anthony_L._Knapp')
+     --> No database record for ["Thomas","Benjamin"]. Inserting data {"key":["Benjamin"," ","Thomas"],"result":"/wiki/Benjamin_Thomas_(congressman)"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Benjamin',' ','Thomas',NULL,'https://en.wikipedia.org/wiki/Benjamin_Thomas_(congressman)')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Benjamin_F._Flanders' WHERE objid = 2160
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Benjamin_F._Harding' WHERE objid = 2630
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Benjamin_Stark' WHERE objid = 5228
+     --> No database record for ["Granger","Bradley"]. Inserting data {"key":["Bradley","F.","Granger"],"result":"/wiki/Bradley_F._Granger"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Bradley','F.','Granger',NULL,'https://en.wikipedia.org/wiki/Bradley_F._Granger')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Burt_Van_Horn' WHERE objid = 5612
+     --> No database record for ["Wood","Benjamin"]. Inserting data {"key":["Benjamin"," ","Wood"],"result":"/wiki/Benjamin_Wood"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Benjamin',' ','Wood',NULL,'https://en.wikipedia.org/wiki/Benjamin_Wood')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Charles_A._Wickliffe' WHERE objid = 5860
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Charles_B._Mitchel' WHERE objid = 3995
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Charles_Benedict_Calvert' WHERE objid = 1148
+     --> No database record for ["Biddle","Charles"]. Inserting data {"key":["Charles","John","Biddle"],"result":"/wiki/Charles_John_Biddle"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Charles','John','Biddle',NULL,'https://en.wikipedia.org/wiki/Charles_John_Biddle')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Charles_H._Upton' WHERE objid = 5589
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Chauncey_Vibbard' WHERE objid = 5658
+     --> No database record for ["White","Chilton"]. Inserting data {"key":["Chilton","A.","White"],"result":"/wiki/Chilton_A._White"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Chilton','A.','White',NULL,'https://en.wikipedia.org/wiki/Chilton_A._White')
+     --> No database record for ["Walton","Charles"]. Inserting data {"key":["Charles","W.","Walton"],"result":"/wiki/Charles_W._Walton"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Charles','W.','Walton',NULL,'https://en.wikipedia.org/wiki/Charles_W._Walton')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Cornelius_L._L._Leary' WHERE objid = 3394
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Edward_Haight_(politician)' WHERE objid = 2574
+     --> No database record for ["Rollins","Edward"]. Inserting data {"key":["Edward","H.","Rollins"],"result":"/wiki/Edward_H._Rollins"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Edward','H.','Rollins',NULL,'https://en.wikipedia.org/wiki/Edward_H._Rollins')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Edgar_Cowan' WHERE objid = 1490
+     --> No database record for ["Smith","Edward"]. Inserting data {"key":["Edward","H.","Smith"],"result":"/wiki/Edward_H._Smith_(politician)"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Edward','H.','Smith',NULL,'https://en.wikipedia.org/wiki/Edward_H._Smith_(politician)')
+     --> No database record for ["Norton","Elijah"]. Inserting data {"key":["Elijah","Hise","Norton"],"result":"/wiki/Elijah_Hise_Norton"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Elijah','Hise','Norton',NULL,'https://en.wikipedia.org/wiki/Elijah_Hise_Norton')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Fernando_C._Beaman' WHERE objid = 654
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Frederick_Low' WHERE objid = 3536
+     --> No database record for ["Conkling","Frederick"]. Inserting data {"key":["Frederick","A.","Conkling"],"result":"/wiki/Frederick_A._Conkling"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Frederick','A.','Conkling',NULL,'https://en.wikipedia.org/wiki/Frederick_A._Conkling')
+     --> No database record for ["Woodruff","George"]. Inserting data {"key":["George","C.","Woodruff"],"result":"/wiki/George_C._Woodruff_(representative)"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('George','C.','Woodruff',NULL,'https://en.wikipedia.org/wiki/George_C._Woodruff_(representative)'
+)
+     --> No database record for ["Pike","Frederick"]. Inserting data {"key":["Frederick","A.","Pike"],"result":"/wiki/Frederick_A._Pike"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Frederick','A.','Pike',NULL,'https://en.wikipedia.org/wiki/Frederick_A._Pike')
+     --> No database record for ["Fisher","George"]. Inserting data {"key":["George","P.","Fisher"],"result":"/wiki/George_P._Fisher"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('George','P.','Fisher',NULL,'https://en.wikipedia.org/wiki/George_P._Fisher')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/George_H._Yeaman' WHERE objid = 5980
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/George_K._Shiel' WHERE objid = 5037
+     --> No database record for ["Cobb","George"]. Inserting data {"key":["George","T.","Cobb"],"result":"/wiki/George_T._Cobb"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('George','T.','Cobb',NULL,'https://en.wikipedia.org/wiki/George_T._Cobb')
+     --> No database record for ["Dunlap","George"]. Inserting data {"key":["George","W.","Dunlap"],"result":"/wiki/George_W._Dunlap"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('George','W.','Dunlap',NULL,'https://en.wikipedia.org/wiki/George_W._Dunlap')
+     --> No database record for ["Bridges","George"]. Inserting data {"key":["George","Washington","Bridges"],"result":"/wiki/George_Washington_Bridges"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('George','Washington','Bridges',NULL,'https://en.wikipedia.org/wiki/George_Washington_Bridges')
+     --> No database record for ["Bailey","Goldsmith"]. Inserting data {"key":["Goldsmith","F.","Bailey"],"result":"/wiki/Goldsmith_F._Bailey"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Goldsmith','F.','Bailey',NULL,'https://en.wikipedia.org/wiki/Goldsmith_F._Bailey')
+     --> No database record for ["Bennet","Hiram"]. Inserting data {"key":["Hiram","P.","Bennet"],"result":"/wiki/Hiram_P._Bennet"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Hiram','P.','Bennet',NULL,'https://en.wikipedia.org/wiki/Hiram_P._Bennet')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Isaac_C._Delaplaine' WHERE objid = 1704
+     --> No database record for ["Harris","Ira"]. Inserting data {"key":["Ira"," ","Harris"],"result":"/wiki/Ira_Harris"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Ira',' ','Harris',NULL,'https://en.wikipedia.org/wiki/Ira_Harris')
+     --> No database record for ["Arnold","Isaac"]. Inserting data {"key":["Isaac","N.","Arnold"],"result":"/wiki/Isaac_N._Arnold"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Isaac','N.','Arnold',NULL,'https://en.wikipedia.org/wiki/Isaac_N._Arnold')
+     --> No database record for ["Blair","Jacob"]. Inserting data {"key":["Jacob","B.","Blair"],"result":"/wiki/Jacob_B._Blair"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Jacob','B.','Blair',NULL,'https://en.wikipedia.org/wiki/Jacob_B._Blair')
+     --> No database record for ["Chamberlain","Jacob"]. Inserting data {"key":["Jacob","P.","Chamberlain"],"result":"/wiki/Jacob_P._Chamberlain"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Jacob','P.','Chamberlain',NULL,'https://en.wikipedia.org/wiki/Jacob_P._Chamberlain')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/James_E._Kerrigan' WHERE objid = 3149
+     --> No database record for ["English","James"]. Inserting data {"key":["James","E.","English"],"result":"/wiki/James_E._English"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('James','E.','English',NULL,'https://en.wikipedia.org/wiki/James_E._English')
+     --> No database record for ["Morris","James"]. Inserting data {"key":["James","R.","Morris"],"result":"/wiki/James_R._Morris"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('James','R.','Morris',NULL,'https://en.wikipedia.org/wiki/James_R._Morris')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/James_W._Nesmith' WHERE objid = 4126
+     --> No database record for ["Wall","James"]. Inserting data {"key":["James","Walter","Wall"],"result":"/wiki/James_Walter_Wall"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('James','Walter','Wall',NULL,'https://en.wikipedia.org/wiki/James_Walter_Wall')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/James_S._Rollins' WHERE objid = 4728
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Jesse_Lazear' WHERE objid = 3383
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/John_Cradlebaugh' WHERE objid = 1502
+     --> No database record for ["Law","John"]. Inserting data {"key":["John"," ","Law"],"result":"/wiki/John_Law_(representative)"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('John',' ','Law',NULL,'https://en.wikipedia.org/wiki/John_Law_(representative)')
+     --> No database record for ["Harding","Aaron"]. Inserting data {"key":["Aaron"," ","Harding"],"result":"/wiki/Aaron_Harding"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Aaron',' ','Harding',NULL,'https://en.wikipedia.org/wiki/Aaron_Harding')
+     --> No database record for ["Sloan","A."]. Inserting data {"key":["A.","Scott","Sloan"],"result":"/wiki/A._Scott_Sloan"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('A.','Scott','Sloan',NULL,'https://en.wikipedia.org/wiki/A._Scott_Sloan')
+     --> No database record for ["Todd","John"]. Inserting data {"key":["John","B. S.","Todd"],"result":"/wiki/John_B._S._Todd"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('John','B. S.','Todd',NULL,'https://en.wikipedia.org/wiki/John_B._S._Todd')
+     --> No database record for ["Stiles","John"]. Inserting data {"key":["John","Dodson","Stiles"],"result":"/wiki/John_Dodson_Stiles"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('John','Dodson','Stiles',NULL,'https://en.wikipedia.org/wiki/John_Dodson_Stiles')
+     --> No database record for ["Rice","John"]. Inserting data {"key":["John","H.","Rice"],"result":"/wiki/John_H._Rice"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('John','H.','Rice',NULL,'https://en.wikipedia.org/wiki/John_H._Rice')
+     --> No database record for ["Goodwin","John"]. Inserting data {"key":["John","N.","Goodwin"],"result":"/wiki/John_N._Goodwin"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('John','N.','Goodwin',NULL,'https://en.wikipedia.org/wiki/John_N._Goodwin')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/John_P._C._Shanks' WHERE objid = 4997
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/John_S._Watts' WHERE objid = 5759
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/John_W._Menzies' WHERE objid = 3929
+     --> No database record for ["Reid","John"]. Inserting data {"key":["John","W.","Reid"],"result":"/wiki/John_W._Reid"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('John','W.','Reid',NULL,'https://en.wikipedia.org/wiki/John_W._Reid')
+     --> No database record for ["Bailey","Joseph"]. Inserting data {"key":["Joseph"," ","Bailey"],"result":"/wiki/Joseph_Bailey_(congressman)"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Joseph',' ','Bailey',NULL,'https://en.wikipedia.org/wiki/Joseph_Bailey_(congressman)')
+     --> No database record for ["Wallace","John"]. Inserting data {"key":["John","Winfield","Wallace"],"result":"/wiki/John_Winfield_Wallace"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('John','Winfield','Wallace',NULL,'https://en.wikipedia.org/wiki/John_Winfield_Wallace')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Joseph_E._Segar' WHERE objid = 4955
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Kellian_Whaley' WHERE objid = 5818
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Lewis_McKenzie' WHERE objid = 3841
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Luther_Hanchett' WHERE objid = 2609
+     --> No database record for ["Hahn","Michael"]. Inserting data {"key":["Michael"," ","Hahn"],"result":"/wiki/Michael_Hahn"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Michael',' ','Hahn',NULL,'https://en.wikipedia.org/wiki/Michael_Hahn')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Moses_F._Odell' WHERE objid = 4232
+     --> No database record for ["Perry","Nehemiah"]. Inserting data {"key":["Nehemiah"," ","Perry"],"result":"/wiki/Nehemiah_Perry_(congressman)"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Nehemiah',' ','Perry',NULL,'https://en.wikipedia.org/wiki/Nehemiah_Perry_(congressman)')
+     --> No database record for ["Johnson","Philip"]. Inserting data {"key":["Philip"," ","Johnson"],"result":"/wiki/Philip_Johnson_(congressman)"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Philip',' ','Johnson',NULL,'https://en.wikipedia.org/wiki/Philip_Johnson_(congressman)')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Portus_Baxter' WHERE objid = 640
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Richard_Stockton_Field' WHERE objid = 2122
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Richard_Franchot' WHERE objid = 2231
+     --> No database record for ["Harrison","Richard"]. Inserting data {"key":["Richard","A.","Harrison"],"result":"/wiki/Richard_A._Harrison"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Richard','A.','Harrison',NULL,'https://en.wikipedia.org/wiki/Richard_A._Harrison')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Robert_H._Nugen' WHERE objid = 4185
+     --> No database record for ["Hooper","Samuel"]. Inserting data {"key":["Samuel"," ","Hooper"],"result":"/wiki/Samuel_Hooper"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Samuel',' ','Hooper',NULL,'https://en.wikipedia.org/wiki/Samuel_Hooper')
+     --> No database record for ["Wilson","Robert"]. Inserting data {"key":["Robert"," ","Wilson"],"result":"/wiki/Robert_Wilson_(Missouri)"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Robert',' ','Wilson',NULL,'https://en.wikipedia.org/wiki/Robert_Wilson_(Missouri)')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Robert_B._Van_Valkenburgh' WHERE objid = 5621
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Rowland_E._Trowbridge' WHERE objid = 5543
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Samuel_Shellabarger_(congressman)' WHERE objid = 5019
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Samuel_C._Pomeroy' WHERE objid = 4476
+     --> No database record for ["Casey","Samuel"]. Inserting data {"key":["Samuel","L.","Casey"],"result":"/wiki/Samuel_L._Casey"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Samuel','L.','Casey',NULL,'https://en.wikipedia.org/wiki/Samuel_L._Casey')
+     --> No database record for ["Fessenden","Samuel"]. Inserting data {"key":["Samuel","C.","Fessenden"],"result":"/wiki/Samuel_C._Fessenden"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Samuel','C.','Fessenden',NULL,'https://en.wikipedia.org/wiki/Samuel_C._Fessenden')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Samuel_T._Worcester' WHERE objid = 5950
+     --> No database record for ["Sherman","Socrates"]. Inserting data {"key":["Socrates","N.","Sherman"],"result":"/wiki/Socrates_N._Sherman"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Socrates','N.','Sherman',NULL,'https://en.wikipedia.org/wiki/Socrates_N._Sherman')
+     --> No database record for ["Fessenden","T."]. Inserting data {"key":["T.","A. D.","Fessenden"],"result":"/wiki/T._A._D._Fessenden"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('T.','A. D.','Fessenden',NULL,'https://en.wikipedia.org/wiki/T._A._D._Fessenden')
+     --> No database record for ["Baker","Stephen"]. Inserting data {"key":["Stephen"," ","Baker"],"result":"/wiki/Stephen_Baker_(congressman)"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Stephen',' ','Baker',NULL,'https://en.wikipedia.org/wiki/Stephen_Baker_(congressman)')
+     --> No database record for ["Pomeroy","Theodore"]. Inserting data {"key":["Theodore","M.","Pomeroy"],"result":"/wiki/Theodore_M._Pomeroy"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Theodore','M.','Pomeroy',NULL,'https://en.wikipedia.org/wiki/Theodore_M._Pomeroy')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Thomas_Holliday_Hicks' WHERE objid = 2784
+     --> No database record for ["Phelps","Timothy"]. Inserting data {"key":["Timothy","G.","Phelps"],"result":"/wiki/Timothy_G._Phelps"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Timothy','G.','Phelps',NULL,'https://en.wikipedia.org/wiki/Timothy_G._Phelps')
+     --> No database record for ["Price","Thomas"]. Inserting data {"key":["Thomas","L.","Price"],"result":"/wiki/Thomas_L._Price"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Thomas','L.','Price',NULL,'https://en.wikipedia.org/wiki/Thomas_L._Price')
+     --> No database record for ["Johnson","Waldo"]. Inserting data {"key":["Waldo","P.","Johnson"],"result":"/wiki/Waldo_P._Johnson"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Waldo','P.','Johnson',NULL,'https://en.wikipedia.org/wiki/Waldo_P._Johnson')
+     --> No database record for ["Howe","Timothy"]. Inserting data {"key":["Timothy","O.","Howe"],"result":"/wiki/Timothy_O._Howe"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Timothy','O.','Howe',NULL,'https://en.wikipedia.org/wiki/Timothy_O._Howe')
+     --> No database record for ["Willey","Waitman"]. Inserting data {"key":["Waitman","T.","Willey"],"result":"/wiki/Waitman_T._Willey"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Waitman','T.','Willey',NULL,'https://en.wikipedia.org/wiki/Waitman_T._Willey')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/Walter_D._McIndoe' WHERE objid = 3825
+     --> No database record for ["Noble","Warren"]. Inserting data {"key":["Warren","P.","Noble"],"result":"/wiki/Warren_P._Noble"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('Warren','P.','Noble',NULL,'https://en.wikipedia.org/wiki/Warren_P._Noble')
+     --> No database record for ["Mitchell","William"]. Inserting data {"key":["William"," ","Mitchell"],"result":"/wiki/William_Mitchell_(congressman)"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('William',' ','Mitchell',NULL,'https://en.wikipedia.org/wiki/William_Mitchell_(congressman)')
+     --> No database record for ["Wall","William"]. Inserting data {"key":["William"," ","Wall"],"result":"/wiki/William_Wall_(congressman)"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('William',' ','Wall',NULL,'https://en.wikipedia.org/wiki/William_Wall_(congressman)')
+     --> No database record for ["Hall","William"]. Inserting data {"key":["William","Augustus","Hall"],"result":"/wiki/William_Augustus_Hall"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('William','Augustus','Hall',NULL,'https://en.wikipedia.org/wiki/William_Augustus_Hall')
+     --> No database record for ["Wadsworth","William"]. Inserting data {"key":["William","H.","Wadsworth"],"result":"/wiki/William_H._Wadsworth"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('William','H.','Wadsworth',NULL,'https://en.wikipedia.org/wiki/William_H._Wadsworth')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/William_Eckart_Lehman' WHERE objid = 3418
+     --> No database record for ["Lansing","William"]. Inserting data {"key":["William","E.","Lansing"],"result":"/wiki/William_E._Lansing"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('William','E.','Lansing',NULL,'https://en.wikipedia.org/wiki/William_E._Lansing')
+     --> No database record for ["Steele","William"]. Inserting data {"key":["William","G.","Steele"],"result":"/wiki/William_G._Steele"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('William','G.','Steele',NULL,'https://en.wikipedia.org/wiki/William_G._Steele')
+     --> No database record for ["Wallace","William"]. Inserting data {"key":["William","H.","Wallace"],"result":"/wiki/William_H._Wallace"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('William','H.','Wallace',NULL,'https://en.wikipedia.org/wiki/William_H._Wallace')
+     --> No database record for ["Davis","William"]. Inserting data {"key":["William","Morris","Davis"],"result":"/wiki/William_Morris_Davis_(congressman)"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('William','Morris','Davis',NULL,'https://en.wikipedia.org/wiki/William_Morris_Davis_(congressman)
+')
+     --> No database record for ["Cutler","William"]. Inserting data {"key":["William","P.","Cutler"],"result":"/wiki/William_P._Cutler"}
+     INSERT INTO people (first_name, middle_name, last_name, suffix, wikipedia_link) VALUES ('William','P.','Cutler',NULL,'https://en.wikipedia.org/wiki/William_P._Cutler')
+UPDATE people SET wikipedia_link = 'https://en.wikipedia.org/wiki/William_Paine_Sheffield_(1820-1907)' WHERE objid = 5014
+[executeQuery] Results. Updated https://en.wikipedia.org/wiki/Alexander_S._Diven,1789, 1 row.
+[ undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  ... 181 more items ]
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+{ Error: Pool is closed.
+    at K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:149:17
+    at Array.forEach (<anonymous>)
+    at Pool.releaseConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:148:37)
+    at Pool._removeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:277:8)
+    at Pool._purgeConnection (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:258:8)
+    at Pool.end (K:\Documents\Government\node\node_modules\mysql\lib\Pool.js:182:10)
+    at Promise.all.then.catch.finally (K:\Documents\Government\node\utilities.js:612:8)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:68:7) code: 'POOL_CLOSED' }
+PS K:\Documents\Government\node>
